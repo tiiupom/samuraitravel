@@ -8,4 +8,6 @@ import com.example.samuraitravel.entity.House;
 
 public interface HouseRepository extends JpaRepository<House, Integer> {
 	public Page<House> findByNameLike(String keyword, Pageable pageable);
+	// idカラムの値で降順に並べ替え、最初の1件を取得するメソッド
+	public House findFirstByOrderByIdDesc();
 }
