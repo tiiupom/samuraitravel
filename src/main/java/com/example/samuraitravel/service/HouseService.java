@@ -99,6 +99,11 @@ public class HouseService {
 
         houseRepository.save(house);
     }
+    
+    @Transactional
+    public void deleteHouse(House house) {
+    	houseRepository.delete(house);
+    }
 
     // UUIDを使って生成したファイル名を返す
     public String generateNewFileName(String fileName) {

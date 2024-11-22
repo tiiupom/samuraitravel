@@ -387,7 +387,11 @@ public class AdminHouseControllerTest {
     	 * （Optional<House>型のオブジェクト）を取得 
     	 * Optional : nullを持つ可能性のあるオブジェクトをより安全かつ便利に扱うクラス
     	 * isPresent()メソッドを使いOptional<T>型（Tは任意の型）のオブジェクトが存在するかどうかを検証
-    	 * assertThat()メソッドを使い「データベースのレコードを正しく更新できている、またはできていないこと」を検証*/
+    	 * 	※Optionalクラスが提供するメソッドで、テスト以外では以下のようにオブジェクトに対し直接使われる
+    	 * 	if (optionalHouse.isPresent()) {
+    			// 変数optionalHouse（Optional<T>型のオブジェクト）が存在する場合の処理
+			}
+		　* assertThat()メソッドを使い「データベースのレコードを正しく更新できている、またはできていないこと」を検証　*/
     	Optional<House> optionalHouse = houseService.findHouseById(1);
     	assertThat(optionalHouse).isPresent();
     	House house = optionalHouse.get();
@@ -398,5 +402,46 @@ public class AdminHouseControllerTest {
     	assertThat(house.getPostalCode()).isEqualTo("000-0000");
     	assertThat(house.getAddress()).isEqualTo("テスト住所");
     	assertThat(house.getPhoneNumber()).isEqualTo("000-000-000");
+    }
+    
+    @Test
+    @Transactional
+    public void 未ログインの場合は民宿を削除せずにログインページにリダイレクトする() throws Exception {
+    	mockMvc.perform(post("/admin/houses/1/delete").with(csrf()))
+    		   .andExpect(status().is3xxRedirection())
+    		   .andExpect(redirectedUrl("http://localhost/login"));
+    	
+    	// isPresent()メソッドでid1のエンティティが存在することを確認
+    	Optional<House> optionalHouse = houseService.findHouseById(1);
+    	assertThat(optionalHouse).isPresent();
+    }
+    
+    @Test
+    @WithUserDetails("taro.samurai@example.com")
+    @Transactional
+    public void 一般ユーザーとしてログイン済みの場合は民宿を削除せずに403エラーが発生する() throws Exception {
+    	mockMvc.perform(post("/admin/houses/1/delete").with(csrf()))
+    		   .andExpect(status().isForbidden());
+    	
+    	// isPresent()メソッドでid1のエンティティが存在することを確認
+    	Optional<House> optionalHouse = houseService.findHouseById(1);
+    	assertThat(optionalHouse).isPresent();
+    }
+    
+    @Test
+    @WithUserDetails("hanako.samurai@example.com")
+    @Transactional
+    public void 管理者としてログイン済みの場合は民宿削除後に民宿一覧ページにリダイレクトする() throws Exception {
+    	mockMvc.perform(post("/admin/houses/1/delete").with(csrf()))
+    		   .andExpect(status().is3xxRedirection())
+    		   .andExpect(redirectedUrl("/admin/houses"));
+    	
+    	// isEmpty()メソッドでid1のエンティティが空であることを確認
+    	/* ※Optionalクラスが提供するメソッドで、テスト以外では以下のようにオブジェクトに対し直接使われる
+    	 　	if (optionalHouse.isEmpty()) {
+    			// 変数optionalHouse（Optional<T>型のオブジェクト）が空の場合の処理
+			}*/
+    	Optional<House> optionalHouse = houseService.findHouseById(1);
+    	assertThat(optionalHouse).isEmpty();
     }
 }

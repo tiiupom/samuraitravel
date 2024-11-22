@@ -50,6 +50,45 @@ footer {
  .samuraitravel-btn:hover {
    opacity: 0.8;
  }
+ 
+ .samuraitravel-dropdown-item:active {
+  background-color: #5196a6;
+}
+
+ .samuraitravel-page-link {
+   color: #5196a6;
+ }
+ 
+ .samuraitravel-page-link:hover {
+   color: #407784;
+ }
+ 
+ .samuraitravel-active {
+   background-color: #5196a6 !important;
+   border-color: #5196a6 !important;
+ }
+
+ .samuraitravel-pre-wrap {
+  /* 改行文字で行を折り返す */
+  white-space: pre-wrap;
+ }
+ 
+ .samuraitravel-link-danger {
+   color: #f2594b;
+ }
+ 
+ .samuraitravel-link-danger:hover {
+   color: #a63c3c;
+ }
+ 
+ .samuraitravel-btn-danger {
+   background-color: #f2594b !important;
+   transition: 0.1s;
+ }
+ 
+ .samuraitravel-btn-danger:hover {
+   opacity: 0.8;
+ }
 
 @media screen and (min-width: 1400px) {
   .samuraitravel-container {
