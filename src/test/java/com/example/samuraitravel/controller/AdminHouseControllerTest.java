@@ -130,6 +130,8 @@ public class AdminHouseControllerTest {
         String fileType = Files.probeContentType(filePath);
         byte[] fileBytes = Files.readAllBytes(filePath);
 
+        /*  MockMvcを使用しMultiPartFile型のデータを含むフォームテストを行う場合
+        　	まずMockMultipartFileオブジェクトを生成しテスト用のファイルを用意する　*/
         MockMultipartFile imageFile = new MockMultipartFile(
             "imageFile",  // フォームのname属性の値
             fileName,     // ファイル名
@@ -137,6 +139,7 @@ public class AdminHouseControllerTest {
             fileBytes     // ファイルのバイト配列
         );
 
+        // MockMvcRequestBuildersクラスのMultipart()メソッドを使用しマルチパートのフォーム送信をシミュレート
         mockMvc.perform(MockMvcRequestBuilders.multipart("/admin/houses/create").file(imageFile)
                 .with(csrf())
                 .param("name", "テスト民宿名")

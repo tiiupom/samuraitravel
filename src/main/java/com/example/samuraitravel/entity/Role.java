@@ -10,9 +10,11 @@ import lombok.Data;
 
 	// アノテーション（＠から始まる短いコードのこと。英語訳は注釈）
 	@Entity	// このクラスがエンティティとして機能するようになる
-	@Table(name = "roles")	// マッピング（対応づけ）テーブル名を指定する
+	@Table(name = "roles")	// マッピング（対応づけ）されるテーブル名を指定する
 	@Data	// ゲッターやセッターなどを自動生成できる
 
+	// ＠Id　：　フィールドを主キーに指定
+	// @GeneratedValueを付けることでAUTO_INCREMENTで指定したidカラムを利用し値を生成する
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

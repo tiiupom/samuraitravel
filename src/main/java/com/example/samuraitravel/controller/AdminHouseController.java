@@ -24,7 +24,7 @@ import com.example.samuraitravel.form.HouseRegisterForm;
 import com.example.samuraitravel.service.HouseService;
 
 @Controller
-@RequestMapping("/admin/houses")
+@RequestMapping("/admin/houses")	// 
 public class AdminHouseController {
     private final HouseService houseService;
 

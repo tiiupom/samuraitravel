@@ -10,6 +10,10 @@ public class HomeController {
 	引数にはマッピングするルートパス（ドメイン名を省略したパス）を指定 */
 		@GetMapping("/") 
 		public String index() {
+			/* リポジトリで作成した民宿を新着順に10件取得するメソッドに対応させる
+			 * リスト型Houseのオブジェクト名newHousesにhouseServiceに格納したデータを代入
+			 	modelに値が代入されたnewHousesを渡してビューに表示されるようにする*/
+		
 			return "index";
 		}
 }

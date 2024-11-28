@@ -14,7 +14,6 @@ import lombok.Data;
 
  // フィールド名はローワーキャメルケースで定義
 
-
  @Entity
  @Table(name = "users")
  @Data
@@ -48,6 +47,7 @@ import lombok.Data;
 	
 	 // 多対一のフィールドにManyToOneアノテーションをつける
 	 // １人のユーザーは１つのロールに属するが、１つのロールは複数のユーザーを持てる
+	 // JoinColumnをつけてname属性に外部のカラム名（role_id）を指定
 	 @ManyToOne
 	 @JoinColumn(name = "role_id")
 	 private Role role;

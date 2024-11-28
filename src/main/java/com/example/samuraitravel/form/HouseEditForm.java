@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-/* AllArgsConstructor　：　全フィールドに値をセットするための引数付きコンストラクタを自動生成できる(lombokの機能) */
+/* AllArgsConstructor　：　全フィールドに値をセットするための引数付きコンストラクタを自動生成できる(lombokの機能) 
+ * 						更新前の値をセットするために使用*/
  @Data
  @AllArgsConstructor
 public class HouseEditForm {
